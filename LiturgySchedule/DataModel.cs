@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Linq;
 
 namespace RTH.LiturgySchedule
 {
@@ -12,11 +14,18 @@ namespace RTH.LiturgySchedule
         public DbSet<Person> People { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
 
-        public static DataModel Initialize()
+        public DataModel(DbContextOptions options) : base(options) { }
+
+        public static DataModel Initialize(DbContextOptions options)
         {
+
             DataModel db;
-            using (db = new DataModel())
+            db = new DataModel(options);
             {
+                // clear database
+                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
+
                 AddPeople(db);
                 AddRoles(db);
                 AddMasses(db);             
@@ -45,30 +54,63 @@ namespace RTH.LiturgySchedule
                 "John", "Mary", "Bill", "Susan"
 
             };
-            list.ForEach(n => { db.People.Add(new Person() { Name = n }); });
+            AddList<Person>(db.People, list.Select(n => new Person() { Name = n }));
+        }
+
+        public static int Count<T>(DbSet<T> set) where T: class
+        {
+            return set.Count();
+        }
+
+        private static int AddList<T>(DbSet<T> set, IEnumerable<T> list) where T : class
+        {
+            var count = 0;
+            foreach(T item in list)
+            {
+                try
+                {
+                    set.Add(item);
+                }
+                catch (ArgumentException ex)
+                {
+                    if (ex.Message.Contains("item with the same key has already been added"))
+                    {
+                    // ignore
+                }
+                    else throw;
+                }
+            }
+            return count;
+
         }
     }
 
     public class Person
     {
-        public String Name;
+        [Key]
+        public String Name { get; set; }
         // prefs
     }
-
+    
     public class Mass
     {
-        public DateTime DateTime;
+        [Key]
+        
+        public DateTime DateTime {get; set; }
     }
-
+    
     public class Assignment
     {
+        public int AssignmentId { set; get; }
         public Mass Mass;
         public Role Role;
         public Person Person;
 
     }
+    
     public class Role
     {
-        public String Name;
+        [Key]
+        public String Name { get; set; }
     }
 }

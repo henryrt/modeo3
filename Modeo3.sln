@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modeo3", "ISolver.cs\Modeo3.csproj", "{811ECA7B-7731-4F02-9A47-1EBE14268553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modeo3", "ISolver.cs\Modeo3.csproj", "{811ECA7B-7731-4F02-9A47-1EBE14268553}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiturgySchedule", "LiturgySchedule\LiturgySchedule.csproj", "{9D74BD14-E5CE-41CB-B213-1FF3CCB3C598}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiturgySchedule", "LiturgySchedule\LiturgySchedule.csproj", "{9D74BD14-E5CE-41CB-B213-1FF3CCB3C598}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.LiturgySchedule", "Test.LiturgySchedule\Test.LiturgySchedule.csproj", "{CF903569-345B-48F9-ACDA-9678F0DF931A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitSched", "LitSched\LitSched.csproj", "{4445664B-E91A-452B-B028-1102AF05C9D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{9D74BD14-E5CE-41CB-B213-1FF3CCB3C598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D74BD14-E5CE-41CB-B213-1FF3CCB3C598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D74BD14-E5CE-41CB-B213-1FF3CCB3C598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF903569-345B-48F9-ACDA-9678F0DF931A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF903569-345B-48F9-ACDA-9678F0DF931A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF903569-345B-48F9-ACDA-9678F0DF931A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF903569-345B-48F9-ACDA-9678F0DF931A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4445664B-E91A-452B-B028-1102AF05C9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4445664B-E91A-452B-B028-1102AF05C9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4445664B-E91A-452B-B028-1102AF05C9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4445664B-E91A-452B-B028-1102AF05C9D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
