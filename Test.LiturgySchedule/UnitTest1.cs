@@ -27,7 +27,7 @@ namespace Test.LiturgySchedule
             }
 
         }
-        
+        /* 
         [Fact]
         public void Test3()
         {
@@ -42,6 +42,6 @@ namespace Test.LiturgySchedule
             Assert.Equal<int>(1, db.Masses.CountAsync().GetAwaiter().GetResult());
             Assert.Equal<int>(0, DataModel.Count(db.Assignments));
 
-        }
+        } */
     }
 }

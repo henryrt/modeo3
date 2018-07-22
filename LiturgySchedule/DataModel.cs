@@ -14,31 +14,39 @@ namespace RTH.LiturgySchedule
         public DbSet<Person> People { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
 
+        public DataModel() : base() { }
         public DataModel(DbContextOptions<DataModel> options) : base(options) { }
 
-        public static DataModel Initialize(DbContextOptions<DataModel> options)
+        public static void ResetDatabase(DbContextOptions<DataModel> options) 
         {
-
-            DataModel db;
-            db = new DataModel(options);
+            using (var db = new DataModel(options)) 
             {
-                // clear database
                 db.Database.EnsureDeleted();
                 db.Database.EnsureCreated();
-
-                AddPeople(db);
-                AddRoles(db);
-                AddMasses(db);             
-
-                db.SaveChanges();
+                //db.Database.
             }
-            return db;
+        }
+        public static void Initialize(DbContextOptions<DataModel> options)
+        {
+            
+            using (var db =  new DataModel(options))
+            {
+                Initialize(db);
+            }
+        }
+
+        public static void Initialize(DataModel db) 
+        {
+            AddPeople(db);
+            AddRoles(db);
+            AddMasses(db);             
+            db.SaveChanges();
         }
 
         private static void AddMasses(DataModel db)
         {
-            DateTime start = new DateTime(2019, 7, 22);
-            int weeks = 5;
+            DateTime start = new DateTime(2018, 7, 22);
+            int weeks = 10;
             for (int i = 0; i <weeks; i++)
             {
                 start = start.AddHours(-7);
@@ -133,4 +141,6 @@ namespace RTH.LiturgySchedule
         [Key]
         public String Name { get; set; }
     }
+
+
 }

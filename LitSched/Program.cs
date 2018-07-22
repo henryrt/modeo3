@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 using RTH.LiturgySchedule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
-using System.IO;
+using System.Data.Common;
 using Newtonsoft.Json;
 
 
@@ -22,18 +23,22 @@ namespace LitSched
                 .UseSqlite<DataModel>(sb.ConnectionString)
                 .Options;
 
-            DataModel.Initialize(options);
- 
-            using (var db = new DataModel(options))
-            {
-                var masses = db.Masses;
-
-                Console.WriteLine(JsonConvert.SerializeObject( masses ));
-                Console.WriteLine(JsonConvert.SerializeObject(db.People));
-                Console.WriteLine(JsonConvert.SerializeObject(db.Roles));
-
+            
+            using (var factory = new DbContextFactory(options, true)) {
+            
+                using (var db = factory.CreateContext())
+                {
+                    DataModel.Initialize(db);
+                }
+                
+                using (var db = factory.CreateContext())
+                {
+                    Console.WriteLine(JsonConvert.SerializeObject( db.Masses.OrderByDescending(x => x.DateTime)));
+                    Console.WriteLine(JsonConvert.SerializeObject( db.People.OrderBy(x => x.Name) ));
+                    Console.WriteLine(JsonConvert.SerializeObject( db.Roles ));
+                }
             }
-
         }
     }
+    
 }
