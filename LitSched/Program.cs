@@ -3,6 +3,7 @@ using RTH.LiturgySchedule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using System.IO;
+using Newtonsoft.Json;
 
 
 namespace LitSched
@@ -22,20 +23,17 @@ namespace LitSched
                 .Options;
 
             DataModel.Initialize(options);
-/* 
+ 
             using (var db = new DataModel(options))
             {
-                MemoryStream ms = new MemoryStream();
-                var serializer = new DataContractJsonSerializer(typeof(Mass));
-                var masses = db.Masses.ToListAsync().GetAwaiter().GetResult();
-                serializer.WriteObject(ms, masses);
+                var masses = db.Masses;
 
-                ms.Position = 0;
-                StreamReader sr = new StreamReader(ms);
-                Console.WriteLine(sr.ReadToEnd());
+                Console.WriteLine(JsonConvert.SerializeObject( masses ));
+                Console.WriteLine(JsonConvert.SerializeObject(db.People));
+                Console.WriteLine(JsonConvert.SerializeObject(db.Roles));
 
             }
- */
+
         }
     }
 }
