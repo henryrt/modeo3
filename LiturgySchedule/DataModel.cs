@@ -14,9 +14,9 @@ namespace RTH.LiturgySchedule
         public DbSet<Person> People { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
 
-        public DataModel(DbContextOptions options) : base(options) { }
+        public DataModel(DbContextOptions<DataModel> options) : base(options) { }
 
-        public static DataModel Initialize(DbContextOptions options)
+        public static DataModel Initialize(DbContextOptions<DataModel> options)
         {
 
             DataModel db;
@@ -37,7 +37,27 @@ namespace RTH.LiturgySchedule
 
         private static void AddMasses(DataModel db)
         {
-            db.Masses.Add(new Mass() { DateTime = new DateTime(2018, 7, 22, 8, 0, 0) });
+            DateTime start = new DateTime(2019, 7, 22);
+            int weeks = 5;
+            for (int i = 0; i <weeks; i++)
+            {
+                start = start.AddHours(-7);
+                db.Masses.Add(new Mass() { DateTime = start }); // Sat 5pm
+
+                start = start.AddHours(15);
+                db.Masses.Add(new Mass() { DateTime = start }); // Sun 8am
+
+                start = start.AddHours(1.5);
+                db.Masses.Add(new Mass() { DateTime = start }); // Sun 9:30
+
+                start = start.AddHours(1.5);
+                db.Masses.Add(new Mass() { DateTime = start }); // Sun 11am
+
+                start = start.AddHours(6);
+                db.Masses.Add(new Mass() { DateTime = start }); // Sun 5pm
+
+                start = start.AddHours(-17).AddDays(7); // move to next week
+            }
         }
 
         private static void AddRoles(DataModel db)
